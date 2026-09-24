@@ -1,0 +1,23 @@
+<resources>
+    <item name="pump_reading" type="id" />
+    <item name="pump_reading_status" type="id" />
+    <item name="pump_reading_detail" type="id" />
+    <item name="pump_read_diagnostics" type="id" />
+    <item name="glucose_units" type="id" />
+    <item name="pump_connection_status" type="id" />
+    <item name="pump_pair" type="id" />
+    <item name="pump_connect" type="id" />
+    <item name="pump_stop" type="id" />
+    <item name="pump_forget" type="id" />
+    <item name="action_feedback" type="id" />
+    <item name="pump_balanced_discovery" type="id" />
+    <item name="live_watch_status" type="id" />
+    <item name="live_watch_diagnostics" type="id" />
+    <item name="battery_status" type="id" />
+    <item name="notification_status" type="id" />
+    <item name="app_settings" type="id" />
+    <item name="battery_help" type="id" />
+    <item name="battery_help_detail" type="id" />
+    <item name="troubleshooting" type="id" />
+    <item name="troubleshooting_detail" type="id" />
+</resources>

@@ -1,0 +1,16 @@
+{
+  "name": "glucostride-suunto",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SuuntoPlus pump CGM display with an optional historical DEMO build",
+  "scripts": {
+    "test": "node --test tests\\receiver.test.cjs tests\\live.test.cjs",
+    "build": "node scripts\\build.cjs",
+    "build:live": "node scripts\\build.cjs --profile live",
+    "build:demo": "node scripts\\build.cjs --profile demo",
+    "package:store": "node scripts\\build.cjs --source"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

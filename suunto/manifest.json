@@ -1,0 +1,29 @@
+{
+  "name": "GlucoStride",
+  "version": "1",
+  "author": "GlucoStride",
+  "description": "Pump CGM via Android. Unencrypted, unauthenticated BLE. Not for treatment or alarms.",
+  "type": "device",
+  "usage": "workout",
+  "modificationTime": 1790273364,
+  "in": [],
+  "out": [
+    { "name": "con", "log": false },
+    { "name": "glucose", "log": false },
+    { "name": "trend", "log": false },
+    { "name": "age", "log": false },
+    { "name": "status", "log": false }
+  ],
+  "template": [
+    { "name": "mmol.html", "displays": ["o"] },
+    { "name": "mgdl.html", "displays": ["o"] }
+  ],
+  "settings": [
+    {
+      "shownName": "Glucose unit",
+      "path": "glucoseUnit",
+      "type": "enum",
+      "values": ["mmol/L", "mg/dL"]
+    }
+  ]
+}
