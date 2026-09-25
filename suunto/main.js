@@ -177,6 +177,16 @@ var convertGlucose = function(value, unit) {
   return value === null ? -1 : (unit === 1 ? value : value / 18.0);
 };
 
+var trendArrow = function(value) {
+  if (value === null) return 32768;
+  var direction = value < 0 ? -1 : 1;
+  var speed = Math.abs(value);
+  if (speed >= 3) return direction * 3;
+  if (speed >= 2) return direction * 2;
+  if (speed >= 1) return direction;
+  return 0;
+};
+
 var receiver, connectionId, connectionState, registered, configured, unit;
 var registrationFailures, configurationFailures, connectFailures, clockStalls;
 var clockRequestPending, clockRequestWaits, clockReady, clockErrorStatus;
@@ -273,10 +283,7 @@ var renderOutputs = function(output) {
   var view = receiver.snapshot(receiver.now);
   output.status = view.status;
   output.glucose = convertGlucose(view.glucose, unit);
-  var trend = view.trend === null ? null : convertGlucose(view.trend, unit);
-  // Round before float32 output storage can shift half-cent boundaries.
-  output.trend = trend === null ? 32768 :
-    (trend < 0 ? -1 : 1) * Math.round(Math.abs(trend) * 100) / 100;
+  output.trend = trendArrow(view.trend);
   output.age = view.age === null ? -1 : Math.floor(view.age);
   clockReady = false;
 };

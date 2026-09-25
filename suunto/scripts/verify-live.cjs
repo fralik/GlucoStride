@@ -75,7 +75,7 @@ module.exports = function verifyLive(main, screenFormats) {
     const h = load(unit);
     h.send({}, 100);
     assert.equal(h.values[1], unit === '0' ? 7 : 126);
-    assert.equal(h.values[2], Math.fround(unit === '0' ? 0.03 : 0.5));
+    assert.equal(h.values[2], 0);
     assert.equal(h.dispatch(4096, h.values).template, unit === '0' ? 'mmol' : 'mgdl');
     assert.equal(h.dispatch(8192, h.values).length, 0);
     h.send({ ...outage, sequence: 10 }, 105);
@@ -110,22 +110,20 @@ module.exports = function verifyLive(main, screenFormats) {
 
   for (const unit of ['0', '1']) {
     const formats = screenFormats.get(unit);
-    const label = unit === '0' ? 'mmol/L/min' : 'mg/dL/min';
-    for (const [trend, mmol, mgdl] of [
-      [50, '+0.03', '+0.50'], [-50, '-0.03', '-0.50'], [0, '0.00', '0.00'],
-      [1, '0.00', '+0.01'], [-1, '0.00', '-0.01'],
-      [9, '+0.01', '+0.09'], [-9, '-0.01', '-0.09'],
-      [32767, '+18.20', '+327.67'], [-32767, '-18.20', '-327.67'],
-      [-32768, '--', '--']
+    for (const [trend, arrow] of [
+      [300, '\uF390\uF390\uF390'], [299, '\uF390\uF390'], [200, '\uF390\uF390'],
+      [199, '\uF390'], [100, '\uF390'], [99, '\uF394'], [0, '\uF394'], [-99, '\uF394'],
+      [-100, '\uF398'], [-199, '\uF398'], [-200, '\uF398\uF398'],
+      [-299, '\uF398\uF398'], [-300, '\uF398\uF398\uF398'], [-32768, '\uF160\uF160']
     ]) {
       const h = load(unit);
       h.send({ trend }, 100);
       assert.equal(h.values[4], 0);
       assert.equal(formats.get('glucose')(h.values[1]), unit === '0' ? '7.0' : '126');
-      assert.equal(formats.get('trend')(h.values[2]), `${unit === '0' ? mmol : mgdl} ${label}`);
+      assert.equal(formats.get('trend')(h.values[2]), arrow);
       h.tick(120);
       hidden(h.values, 7);
-      assert.equal(formats.get('trend')(h.values[2]), `-- ${label}`);
+      assert.equal(formats.get('trend')(h.values[2]), '\uF160\uF160');
     }
   }
 

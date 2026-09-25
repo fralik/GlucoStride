@@ -15,19 +15,25 @@ intentionally saved to exercise logs or workout summaries. This display is not
 for treatment decisions, alarms or replacement of established monitoring.
 Normal watch wake/button behavior is unchanged; tap-to-wake is not an app feature.
 
-## Choose glucose and trend units
+## Choose glucose units
 
-One **Glucose unit** setting controls both values, independently of the Android
-app's unit and the watch's metric/imperial setting:
+The **Glucose unit** setting controls the main reading independently of the
+Android app's unit and the watch's metric/imperial setting:
 
-| Selection | Glucose example | Trend example |
-| --- | --- | --- |
-| mmol/L (default) | 7.0 mmol/L | +0.03 mmol/L/min |
-| mg/dL | 126 mg/dL | +0.50 mg/dL/min |
+| Selection | Glucose example |
+| --- | --- |
+| mmol/L (default) | 7.0 mmol/L |
+| mg/dL | 126 mg/dL |
 
-These are synthetic examples. Trend has two decimal places, a sign for nonzero
-values and no negative zero. Unknown trend is `--`, not flat. Both quantities
-convert from mg/dL using a factor of 18; wire values remain unchanged.
+These are synthetic examples. The trend uses MiniMed-style arrows based on the
+raw rate: `→` below 1 mg/dL/min, one arrow from 1, two from 2 and three from
+3 mg/dL/min. Down arrows use the same absolute thresholds. Unknown trend is
+`--`, not flat. Wire values remain unchanged.
+
+The trend row uses Suunto's native medium arrow and dash icons in a fixed-width
+centered field. Ordinary Unicode arrows are not present in the watch's text
+font and must not be used here. Build verification checks the compiled trend
+formatter against the display `o` font's supported characters.
 
 For Store-delivered apps, open the Suunto mobile app's paired watch, then
 **SuuntoPlus / My Apps > GlucoStride > settings > Glucose unit**. Sync and start

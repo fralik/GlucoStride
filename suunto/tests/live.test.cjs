@@ -157,19 +157,21 @@ test('persistent glucose setting selects both display units, with mmol/L as the 
   assert.equal(c.getUserInterface().template, 'mgdl', 'new workout reads the synced preference');
 });
 
-test('rising, falling, flat and unknown rates use the selected glucose unit and signed precision', () => {
+test('trend rates use MiniMed-style arrow bands independently of the selected glucose unit', () => {
   for (const unit of ['0', '1']) {
     const html = files[unit === '0' ? 'mmol.html' : 'mgdl.html'];
     const expression = html.match(/Output\/trend" outputFormat="script ([^"]+)"/)[1];
     const format = vm.runInNewContext(`(${expression.replace(/&lt;/g, '<').replace(/&gt;/g, '>')})`);
-    const label = unit === '0' ? 'mmol/L/min' : 'mg/dL/min';
-    assert.ok(html.includes(`default="-- ${label}"`));
-    for (const [trend, mmol, mgdl] of [
-      [50, '+0.03', '+0.50'], [-50, '-0.03', '-0.50'], [0, '0.00', '0.00'],
-      [1, '0.00', '+0.01'], [-1, '0.00', '-0.01'],
-      [9, '+0.01', '+0.09'], [-9, '-0.01', '-0.09'],
-      [32767, '+18.20', '+327.67'], [-32767, '-18.20', '-327.67'],
-      [-32768, '--', '--']
+    assert.ok(html.includes('class="sp-d-xl f-num p-hc"'));
+    assert.match(html, /class="f-ico-m p-hc" style="top:58%;width:96px;text-align:center;">\s*<eval input="Zapp\/\{zapp_index\}\/Output\/trend"/);
+    assert.ok(html.includes('default="&#xF160;&#xF160;"'));
+    for (const [trend, arrow, category] of [
+      [300, '\uF390\uF390\uF390', 3], [299, '\uF390\uF390', 2],
+      [200, '\uF390\uF390', 2], [199, '\uF390', 1], [100, '\uF390', 1],
+      [99, '\uF394', 0], [0, '\uF394', 0], [-99, '\uF394', 0],
+      [-100, '\uF398', -1], [-199, '\uF398', -1], [-200, '\uF398\uF398', -2],
+      [-299, '\uF398\uF398', -2], [-300, '\uF398\uF398\uF398', -3],
+      [-32768, '\uF160\uF160', 32768]
     ]) {
       const { context: c, tick } = load(unit);
       const output = {};
@@ -182,10 +184,9 @@ test('rising, falling, flat and unknown rates use the selected glucose unit and 
       tick(101, output);
       const canonicalTrend = trend === -32768 ? null : trend / 100;
       assert.equal(c.receiver.snapshot(101).trend, canonicalTrend, 'wire/history remain mg/dL/min');
-      assert.equal(output.trend === 0 ? 0 : output.trend,
-        canonicalTrend === null ? 32768 : Number(unit === '0' ? mmol : mgdl));
-      assert.equal(format(output.trend), `${unit === '0' ? mmol : mgdl} ${label}`);
-      assert.equal(format(Math.fround(output.trend)), `${unit === '0' ? mmol : mgdl} ${label}`);
+      assert.equal(output.trend, category);
+      assert.equal(format(output.trend), arrow);
+      assert.equal(format(Math.fround(output.trend)), arrow);
       assert.equal(output.glucose, unit === '0' ? 7 : 126);
     }
   }
@@ -519,7 +520,7 @@ test('live native callbacks use distinct UUIDs, units, initial read, notificatio
     c.bleEventHandler(0, 102, canonical);
     tick(104, output);
     assert.equal(output.glucose, unit === '0' ? 7 : 126);
-    assert.equal(output.trend, unit === '0' ? 0.03 : 0.5);
+    assert.equal(output.trend, 0);
     assert.equal(output.age, 31);
     assert.equal(c.getUserInterface().template, unit === '0' ? 'mmol' : 'mgdl');
     tick(123, output, 'onExercisePause');

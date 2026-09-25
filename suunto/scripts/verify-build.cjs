@@ -28,6 +28,7 @@ module.exports = function verifyBuild(filename, tools, profileName = defaultProf
   const settings = JSON.parse(zip.readAsText('data.jsn'));
   assert.ok(['0', '1'].includes(settings.glucoseUnit), 'Valid initial glucose unit');
   assert.equal(manifest.in.length, 0, 'UTC must not pass through a numeric manifest input');
+  const charsets = require(path.join(tools, 'lib', 'generated', 'charset-o.js')).charsetsO;
   const screenFormats = new Map();
   for (const screen of ['mmol.xml', 'mgdl.xml']) {
     const xml = zip.readAsText(screen);
@@ -50,10 +51,25 @@ module.exports = function verifyBuild(filename, tools, profileName = defaultProf
     ]));
     screenFormats.set(screen === 'mmol.xml' ? '0' : '1', formats);
     assert.equal(formats.get('glucose')(-1), '--');
-    assert.equal(formats.get('trend')(32768), `-- ${unit}/min`);
-    for (const [value, text] of [[0.5, '+0.50'], [-0.5, '-0.50'], [0, '0.00'],
-      [-0.0005, '0.00'], [0.0005, '0.00']]) {
-      assert.equal(formats.get('trend')(value), `${text} ${unit}/min`);
+    const trendElement = xml.match(/<div><class>([^<]+)<\/class><style>((?:(?!<\/style>)[\s\S])*)<\/style><eval><input>Zapp\/\{zapp_index\}\/Output\/trend<\/input>/);
+    assert.ok(trendElement, 'Trend must have its own font and layout');
+    const trendFont = trendElement[1].split(' ').find(name => charsets.has(name));
+    assert.equal(trendFont, 'f-ico-m');
+    assert.match(trendElement[2], /<width><pixel>96<\/pixel><\/width>/);
+    assert.match(trendElement[2], /<text-align><valueText>center<\/valueText><\/text-align>/);
+    assert.ok(xml.includes(`<default>\uF160\uF160</default>`), 'Unknown default uses supported dash icons');
+    assert.equal(formats.get('trend')(32768), '\uF160\uF160');
+    for (const [value, text] of [
+      [-3, '\uF398\uF398\uF398'], [-2, '\uF398\uF398'], [-1, '\uF398'],
+      [0, '\uF394'], [1, '\uF390'], [2, '\uF390\uF390'], [3, '\uF390\uF390\uF390'],
+      [32768, '\uF160\uF160']
+    ]) {
+      const rendered = formats.get('trend')(value);
+      assert.equal(rendered, text);
+      for (const glyph of rendered) {
+        assert.ok(charsets.get(trendFont).has(glyph),
+          `Trend glyph U+${glyph.codePointAt(0).toString(16)} must exist in the watch font`);
+      }
     }
     assert.equal(formats.get('age')(-1), 'Age unknown');
     assert.equal(formats.get('glucose')(screen === 'mmol.xml' ? 7 : 126),
@@ -117,7 +133,7 @@ module.exports = function verifyBuild(filename, tools, profileName = defaultProf
   handler(0, 102, packet('010100007e0032001e0000000700000009000000'));
   tick(4);
   assert.equal(resources[1], 7);
-  assert.equal(resources[2], Math.fround(0.03));
+  assert.equal(resources[2], 0);
   tick(23, 256); // onExercisePause
   assert.equal(resources[1], -1);
   assert.equal(resources[4], 7);

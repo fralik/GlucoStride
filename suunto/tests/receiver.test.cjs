@@ -287,7 +287,7 @@ test('official BLE callback state machine registers, subscribes and reads custom
   c.bleEventHandler(0, 102, canonical);
   tick(105, output);
   assert.equal(output.glucose, 7);
-  assert.equal(output.trend, 0.03);
+  assert.equal(output.trend, 0);
   assert.equal(output.age, 31);
   c.bleEventHandler(1, 106, packet({ flags: 0 }));
   tick(106, output);
@@ -338,7 +338,7 @@ test('native epoch seconds advance even when a float-sized manifest input is unc
     if (second > 0) {
       assert.equal(output.status, 0);
       assert.equal(output.glucose, 7);
-      assert.equal(output.trend, 0.03);
+      assert.equal(output.trend, 0);
     }
     if (second % 5 === 0) {
       c.bleEventHandler(0, 106, packet({
@@ -474,7 +474,8 @@ test('unit setting, screen-only manifest and persistent DEMO labels', () => {
   for (const file of ['mmol.html', 'mgdl.html']) {
     const html = files[file];
     assert.ok(html.includes(`>GlucoStride DEMO v${manifest.version}</div>`));
-    assert.ok(html.includes(file === 'mmol.html' ? 'mmol/L/min' : 'mg/dL/min'));
+    assert.ok(html.includes('\\uF390\\uF390\\uF390'));
+    assert.match(html, /class="f-ico-m p-hc"/);
     assert.match(html, /DISCONNECTED/);
     assert.match(html, /STALE/);
     assert.match(html, /CLOCK WAIT/);

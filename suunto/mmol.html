@@ -1,12 +1,12 @@
 <uiView>
   <div id="suuntoplus">
     <div class="sp-t-s p-hc" style="top:9%;">GlucoStride</div>
-    <div class="sp-d-l f-num p-hc" style="top:24%;">
+    <div class="sp-d-xl f-num p-hc" style="top:21%;">
       <eval input="Zapp/{zapp_index}/Output/glucose" outputFormat="script x => x &lt; 0 ? '--' : x.toFixed(1)" default="--" />
     </div>
     <div class="sp-t-s p-hc" style="top:47%;">mmol/L</div>
-    <div class="sp-t-s f-num p-hc" style="top:59%;">
-      <eval input="Zapp/{zapp_index}/Output/trend" outputFormat="script x => x === 32768 ? '-- mmol/L/min' : (Math.abs(x) &lt; 0.005 ? '0.00' : (x &gt; 0 ? '+' : '') + x.toFixed(2)) + ' mmol/L/min'" default="-- mmol/L/min" />
+    <div class="f-ico-m p-hc" style="top:58%;width:96px;text-align:center;">
+      <eval input="Zapp/{zapp_index}/Output/trend" outputFormat="script x => x === 32768 ? '\uF160\uF160' : ['\uF398\uF398\uF398', '\uF398\uF398', '\uF398', '\uF394', '\uF390', '\uF390\uF390', '\uF390\uF390\uF390'][x + 3]" default="&#xF160;&#xF160;" />
     </div>
     <div class="sp-t-s f-num p-hc" style="top:71%;">
       <eval input="Zapp/{zapp_index}/Output/age" outputFormat="script x => x &lt; 0 ? 'Age unknown' : 'Age ' + Math.floor(x) + 's'" default="Age unknown" />
