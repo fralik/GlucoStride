@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Android: Build debug APK",
+			"type": "shell",
+			"command": "$ErrorActionPreference = 'Stop'; $env:JAVA_HOME = 'C:\\Program Files\\Android\\Android Studio\\jbr'; $env:ANDROID_HOME = Join-Path $env:LOCALAPPDATA 'Android\\Sdk'; Set-Location '${workspaceFolder}\\android'; & '.\\gradlew.bat' assembleDebug --console=plain; exit $LASTEXITCODE",
+			"options": {
+				"shell": {
+					"executable": "powershell.exe",
+					"args": ["-NoProfile", "-Command"]
+				}
+			},
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}

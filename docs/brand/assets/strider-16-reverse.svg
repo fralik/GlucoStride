@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" role="img" aria-labelledby="title">
+  <title id="title">GlucoStride Strider, 16 pixel reverse optical icon</title>
+  <g color="#F5F5EE">
+    <path d="M7 8 L5 11 H3 L2 12 M10 9 L12 11 L11 14 H14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M9 1 C8 3 6 4 5 6 C4 8 6 10 8 10 C10 10 12 8 11 6 C10 4 10 3 9 1 Z" fill="currentColor"/>
+  </g>
+</svg>

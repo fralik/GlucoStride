@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>GlucoStride / The Strider identity</title>
+  <style>
+    :root { --ink: #101b24; --mint: #6ee7c2; --paper: #f5f5ee; --muted: #53635e; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: "Segoe UI", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+    main { max-width: 1256px; padding: 38px 40px; margin: auto; }
+    a { color: inherit; text-underline-offset: 4px; }
+    a:focus-visible { outline: 2px solid #087f68; outline-offset: 5px; }
+    nav { display: flex; justify-content: space-between; align-items: center; gap: 20px; font-size: 11px; }
+    .eyebrow, .label { font-size: 10px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
+    .eyebrow { color: #087f68; }
+    header { display: flex; justify-content: space-between; gap: 36px; align-items: end; margin: 35px 0 30px; }
+    h1 { margin: 0; font-size: clamp(40px, 5vw, 64px); letter-spacing: -2.5px; line-height: 1; font-weight: 800; }
+    header p { max-width: 390px; margin: 0; font-size: 14px; line-height: 1.7; color: var(--muted); }
+    .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+    .lockup { padding: 24px; border-radius: 12px; background: var(--mint); }
+    .lockup.reverse { background: var(--ink); color: var(--paper); }
+    .lockup.markdown { background: #fff; border: 1px solid #d6ded7; }
+    .lockup > img { display: block; width: 100%; height: auto; margin: 16px 0 20px; }
+    .lockup p { font-size: 12px; line-height: 1.65; margin: 0 0 16px; }
+    .markdown-example { overflow-x: auto; padding: 16px; background: #fff; border: 1px solid #d6ded7; border-radius: 8px; font-size: 12px; }
+    .download-row { display: flex; flex-wrap: wrap; gap: 16px; font-size: 11px; }
+    .section-heading { margin: 38px 0 18px; display: flex; align-items: baseline; justify-content: space-between; gap: 20px; }
+    h2 { font-size: 28px; letter-spacing: -1px; margin: 0; line-height: 1.15; }
+    .section-heading p { font-size: 12px; color: var(--muted); margin: 0; }
+    .card { min-width: 0; padding: 24px; border: 1px solid #d6ded7; border-radius: 12px; background: #fff; }
+    .card h3 { margin: 0 0 7px; font-size: 22px; letter-spacing: -.5px; }
+    .description { color: var(--muted); font-size: 13px; line-height: 1.65; margin: 0; }
+    .optical-proof { display: grid; grid-template-columns: 168px minmax(0, 1fr); align-items: center; gap: 25px; margin: 22px 0; }
+    .enlargement { margin: 0; text-align: center; }
+    .pixel-box { display: grid; place-items: center; width: 168px; height: 168px; background: var(--paper); border-radius: 8px; }
+    .pixel-box img { image-rendering: pixelated; }
+    figcaption { font-size: 10px; color: var(--muted); margin-top: 9px; }
+    .native-pair { display: flex; gap: 10px; margin: 10px 0 13px; }
+    .native { width: 62px; height: 62px; display: grid; place-items: center; border-radius: 8px; background: var(--paper); }
+    .native.dark { background: var(--ink); }
+    .native-copy { color: var(--muted); font-size: 11px; line-height: 1.65; }
+    .spec { border-top: 1px solid #e0e6df; padding-top: 16px; font-size: 12px; line-height: 1.7; }
+    .spec strong { font-weight: 700; }
+    .card .download-row { margin-top: 14px; color: #087f68; }
+    .avatar-row { display: flex; gap: 18px; justify-content: center; align-items: center; flex-wrap: wrap; margin: 22px 0; }
+    .avatar-row img { display: block; }
+    .avatar-native { display: grid; gap: 10px; padding-left: 4px; }
+    .reverse-proof { display: flex; justify-content: center; align-items: center; gap: 34px; margin: 24px 0; padding: 22px 14px; background: var(--ink); color: var(--paper); border-radius: 8px; }
+    .reverse-proof figure { text-align: center; margin: 0; }
+    .reverse-proof figcaption { color: #bfd1cb; }
+    .rules { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; border-top: 1px solid #cfdad1; margin-top: 32px; padding-top: 24px; }
+    .rules h3 { margin: 0 0 8px; font-size: 13px; }
+    .rules p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.8; }
+    code { font-family: Consolas, monospace; font-size: .95em; }
+    footer { margin-top: 28px; color: var(--muted); font-size: 11px; line-height: 1.7; }
+    @media (max-width: 1050px) {
+      main { padding: 30px 24px; }
+      .card { padding: 20px; }
+      .optical-proof { grid-template-columns: 144px minmax(0, 1fr); gap: 16px; }
+      .pixel-box { width: 144px; height: 160px; }
+      .avatar-row > img { width: 112px; height: 112px; }
+      .avatar-row { gap: 12px; }
+    }
+    @media (max-width: 760px) {
+      main { max-width: 580px; padding: 26px 20px; }
+      header, .section-heading { display: block; }
+      header p { margin-top: 18px; }
+      .pair, .rules { grid-template-columns: 1fr; }
+      .section-heading p { margin-top: 10px; line-height: 1.6; }
+      .rules { gap: 20px; }
+      .avatar-row > img { width: 128px; height: 128px; }
+    }
+    @media (max-width: 390px) {
+      nav { font-size: 10px; }
+      .eyebrow { font-size: 9px; letter-spacing: 1px; }
+      .optical-proof { grid-template-columns: 144px minmax(0, 1fr); gap: 12px; }
+      .native { width: 48px; height: 56px; }
+      .native-pair { gap: 6px; }
+      .avatar-row > img { width: 112px; height: 112px; }
+      .reverse-proof { gap: 20px; }
+    }
+    @media (max-width: 350px) {
+      .optical-proof { grid-template-columns: 1fr; }
+      .pixel-box { margin: auto; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <nav aria-label="Identity navigation">
+      <span class="eyebrow">GlucoStride / Selected identity</span>
+    </nav>
+    <header>
+      <h1>The Strider.</h1>
+      <p>A solid glucose drop, a running stride and a trail underfoot. Optical artwork for small icons, avatars and reversed applications &mdash; not one drawing shrunk to every size.</p>
+    </header>
+    <section class="pair" aria-label="Primary and reverse project logos">
+      <div class="lockup">
+        <span class="label">Primary / Outlined lettering</span>
+        <img src="assets/strider-logo.svg" width="560" height="228" alt="GlucoStride: a running drop above a trail beside a bold italic wordmark">
+        <div class="download-row"><a href="assets/strider-logo.svg" download>Logo SVG</a><a href="assets/strider-logo.png" download>Logo PNG / 2x</a><a href="assets/strider.svg" download>Mark only</a></div>
+      </div>
+      <div class="lockup reverse">
+        <span class="label">Reverse / Optically heavier trail</span>
+        <img src="assets/strider-logo-reverse.svg" width="560" height="228" alt="Reverse GlucoStride logo in off-white on navy">
+        <div class="download-row"><a href="assets/strider-logo-reverse.svg" download>Reverse SVG</a><a href="assets/strider-logo-reverse.png" download>Reverse PNG / 2x</a><a href="assets/strider-reverse.svg" download>Reverse mark</a></div>
+      </div>
+    </section>
+
+    <div class="section-heading"><h2>Mint / Ready for Markdown.</h2><p>Original brand mint, with two background options.</p></div>
+    <section class="pair" aria-label="Mint logo variants">
+      <div class="lockup reverse">
+        <span class="label">Mint / Transparent background</span>
+        <img src="assets/strider-logo-mint.svg" width="560" height="228" alt="Mint GlucoStride symbol and wordmark, shown on navy">
+        <p>The full logo in <code>#6EE7C2</code>, with no background. Best on dark surfaces; light mint has low contrast on white. Uses the heavier reverse trail.</p>
+        <div class="download-row"><a href="assets/strider-logo-mint.svg" download>Mint SVG</a><a href="assets/strider-logo-mint.png" download>Mint PNG / 2x</a></div>
+      </div>
+      <div class="lockup markdown">
+        <span class="label">Mint on navy / Markdown recommended</span>
+        <img src="assets/strider-logo-mint-on-navy.svg" width="560" height="228" alt="Mint GlucoStride logo with an embedded navy background">
+        <p>The same artwork with <code>#101B24</code> baked into the image. Keeps the mint clear in both light and dark Markdown themes, without CSS or theme switching.</p>
+        <div class="download-row"><a href="assets/strider-logo-mint-on-navy.svg" download>Mint-on-navy SVG</a><a href="assets/strider-logo-mint-on-navy.png" download>Mint-on-navy PNG / 2x</a></div>
+      </div>
+    </section>
+    <pre class="markdown-example" aria-label="Markdown usage from the repository root"><code>![GlucoStride](docs/brand/assets/strider-logo-mint-on-navy.svg)</code></pre>
+
+    <div class="section-heading">
+      <h2>Small on purpose.</h2>
+      <p>Native-size SVGs beside enlarged, real 1x PNG pixels.</p>
+    </div>
+    <section class="pair" aria-label="Optical small-size variants">
+      <article class="card">
+        <h3>16 px / Simplify.</h3>
+        <p class="description">A dedicated pixel-grid silhouette. No swoosh, a larger drop and more room between the legs.</p>
+        <div class="optical-proof">
+          <figure class="enlargement">
+            <div class="pixel-box"><img src="assets/strider-16.png" width="128" height="128" alt="Eight-times magnified pixels of the 16 pixel Strider icon"></div>
+            <figcaption>16 px PNG / 8x magnification</figcaption>
+          </figure>
+          <div>
+            <span class="label">Actual size</span>
+            <div class="native-pair">
+              <div class="native"><img src="assets/strider-16.svg" width="16" height="16" alt="16 pixel primary Strider"></div>
+              <div class="native dark"><img src="assets/strider-16-reverse.svg" width="16" height="16" alt="16 pixel reverse Strider"></div>
+            </div>
+            <div class="native-copy">2 px legs.<br>Integer anchors.<br>Open negative space.</div>
+          </div>
+        </div>
+        <div class="spec">Horizontal foot edges land on the pixel grid. Curves remain antialiased; no global <code>crispEdges</code> filter distorts the drop.</div>
+        <div class="download-row"><a href="assets/strider-16.svg" download>SVG</a><a href="assets/strider-16.png" download>PNG</a><a href="assets/strider-16-reverse.svg" download>Reverse SVG</a><a href="assets/strider-16-reverse.png" download>Reverse PNG</a></div>
+      </article>
+      <article class="card">
+        <h3>24 px / Keep the trail.</h3>
+        <p class="description">A shorter forward leg leaves breathing room above a stronger ground trail.</p>
+        <div class="optical-proof">
+          <figure class="enlargement">
+            <div class="pixel-box"><img src="assets/strider-24.png" width="144" height="144" alt="Six-times magnified pixels of the 24 pixel Strider icon"></div>
+            <figcaption>24 px PNG / 6x magnification</figcaption>
+          </figure>
+          <div>
+            <span class="label">Actual size</span>
+            <div class="native-pair">
+              <div class="native"><img src="assets/strider-24.svg" width="24" height="24" alt="24 pixel primary Strider"></div>
+              <div class="native dark"><img src="assets/strider-24-reverse.svg" width="24" height="24" alt="24 pixel reverse Strider"></div>
+            </div>
+            <div class="native-copy">1.5 px primary trail.<br>1.75 px reverse trail.<br>2.5 px legs.</div>
+          </div>
+        </div>
+        <div class="spec">The trail is <strong>1.5 px at native 24 px size</strong>, not a scaled-down hairline. The reverse version has its own heavier stroke.</div>
+        <div class="download-row"><a href="assets/strider-24.svg" download>SVG</a><a href="assets/strider-24.png" download>PNG</a><a href="assets/strider-24-reverse.svg" download>Reverse SVG</a><a href="assets/strider-24-reverse.png" download>Reverse PNG</a></div>
+      </article>
+    </section>
+
+    <div class="section-heading"><h2>Optical balance.</h2><p>More presence in the tile. More weight against dark backgrounds.</p></div>
+    <section class="pair" aria-label="Avatar and reverse refinements">
+      <article class="card">
+        <h3>Avatar / 70% visible width.</h3>
+        <p class="description">Sized from the painted mark, not its empty SVG canvas. The taller silhouette occupies about 88% of the tile height.</p>
+        <div class="avatar-row">
+          <img src="assets/strider-avatar.svg" width="128" height="128" alt="Larger Strider avatar on mint">
+          <img src="assets/strider-avatar-reverse.svg" width="128" height="128" alt="Optically centred reverse Strider avatar">
+          <div class="avatar-native">
+            <img src="assets/strider-avatar.svg" width="49" height="49" alt="Strider avatar at 49 pixels">
+            <img src="assets/strider-avatar-reverse.svg" width="49" height="49" alt="Reverse avatar at 49 pixels">
+          </div>
+        </div>
+        <div class="spec">The mark sits approximately <strong>4 px up and 4 px left</strong> of geometric centring in a 256 px tile. Keep this placement when exporting; do not auto-centre it again.</div>
+        <div class="download-row"><a href="assets/strider-avatar.svg" download>Avatar SVG</a><a href="assets/strider-avatar.png" download>256 px PNG</a><a href="assets/strider-avatar-reverse.svg" download>Reverse SVG</a><a href="assets/strider-avatar-reverse.png" download>Reverse PNG</a></div>
+      </article>
+      <article class="card">
+        <h3>Reverse / Add weight selectively.</h3>
+        <p class="description">The drop and legs are unchanged. Only the trail gains weight, so the reversed mark stays balanced rather than becoming uniformly heavier.</p>
+        <div class="reverse-proof">
+          <figure><img src="assets/strider-16-reverse.svg" width="16" height="16" alt="16 pixel reverse icon without trail"><figcaption>16 px</figcaption></figure>
+          <figure><img src="assets/strider-24-reverse.svg" width="24" height="24" alt="24 pixel reverse icon with 1.75 pixel trail"><figcaption>24 px</figcaption></figure>
+          <figure><img src="assets/strider-reverse.svg" width="40" height="48" alt="48 pixel reverse master"><figcaption>48 px</figcaption></figure>
+          <figure><img src="assets/strider-reverse.svg" width="60" height="72" alt="72 pixel reverse master"><figcaption>72 px</figcaption></figure>
+        </div>
+        <div class="spec">Master trail: <strong>7 to 9 units</strong> in reverse. At 24 px: <strong>1.5 to 1.75 px</strong>. At 16 px: no trail in either colourway.</div>
+        <div class="download-row"><a href="assets/strider-reverse.svg" download>Reverse master SVG</a></div>
+      </article>
+    </section>
+
+    <div class="section-heading"><h2>Android / Mint on navy.</h2><p>Native VectorDrawable artwork, ready for the app.</p></div>
+    <section class="card" aria-label="Android drawable">
+      <div class="avatar-row">
+        <img src="assets/strider-android.svg" width="128" height="128" alt="Enlarged Android icon: mint Strider on a solid navy square">
+        <img src="assets/strider-android.svg" width="48" height="48" alt="Android icon at its native 48 pixel size">
+      </div>
+      <p class="description">A 48 dp square with the original near-black <code>#101B24</code> background and mint <code>#6EE7C2</code> figure. It keeps the avatar's optical placement and the heavier reverse trail. The existing <code>@drawable/ic_glucostride</code> resource now uses this design.</p>
+      <div class="download-row"><a href="../../android/src/main/res/drawable/ic_glucostride.xml" download>Android VectorDrawable XML</a><a href="assets/strider-android.svg" download>SVG preview</a></div>
+      <div class="spec">Notifications use a separate <strong>24 dp monochrome icon with a transparent background</strong>, based on the optical 24 px artwork. Android tints its alpha mask; the coloured square must not be used as a notification small icon.</div>
+      <div class="download-row"><a href="../../android/src/main/res/drawable/ic_glucostride_notification.xml" download>Notification VectorDrawable XML</a></div>
+    </section>
+
+    <section class="rules" aria-label="Identity usage notes">
+      <div><h3>Choose by display size</h3><p>Use the dedicated 16 px artwork at 16 px, the 24 px artwork at 24&ndash;32 px, and the master at 48 px and above. Avoid fractional CSS sizes and positions. PNG icon exports are 1x; SVGs scale with display density.</p></div>
+      <div><h3>Use the correct colourway</h3><p>Navy <code>#101B24</code>, mint <code>#6EE7C2</code> and paper <code>#F5F5EE</code>. Use reverse or mint assets on navy; both retain the heavier reverse trail. Prefer the navy-backed mint logo for Markdown on unknown backgrounds.</p></div>
+      <div><h3>Keep the files self-contained</h3><p>Logo lettering is outlined: no installed fonts or external downloads are required. Project assets are local SVG and PNG files; Android uses native VectorDrawable XML for the launcher and notification icons.</p></div>
+    </section>
+  </main>
+</body>
+</html>

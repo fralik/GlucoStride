@@ -1,5 +1,7 @@
 # GlucoStride
 
+<img src="docs/brand/assets/strider-logo-mint-on-navy.svg" alt="GlucoStride Strider logo in mint on navy" width="360">
+
 A local, read-only MiniMed CGM reader for **Android 12+**, with a
 **Suunto Vertical** workout screen.
 
@@ -54,6 +56,9 @@ $env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
 .\gradlew.bat testDebugUnitTest assembleDebug lintDebug --console=plain
 ```
 
+In VS Code on Windows, run the **Android: Build debug APK** build task to
+build just the APK using the default Android Studio and SDK locations above.
+
 Output from the repository root: `android\build\outputs\apk\debug\glucostride-debug.apk`.
 
 ### Watch
@@ -73,6 +78,8 @@ mobile pairing; synchronization can remove development apps.
 
 ## Documentation and release
 
+- [Visual identity and logo assets](docs/brand/index.html): primary, reverse, avatar
+  and optical 16 px / 24 px artwork, plus Android app and notification drawables.
 - [Pump reader](docs/pump-reader.md): pairing, source-time validation and limitations.
 - [BLE protocol](docs/protocol.md): packet format, freshness and reconnect rules.
 - [Watch build](suunto/README.md) and [usage / Store preparation](suunto/LIVE.md).

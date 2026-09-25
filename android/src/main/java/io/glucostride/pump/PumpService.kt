@@ -277,7 +277,7 @@ class PumpService : Service() {
         val stop = PendingIntent.getService(this, 21, Intent(this, PumpService::class.java).setAction(ACTION_STOP),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         return Notification.Builder(this, CHANNEL)
-            .setSmallIcon(R.drawable.ic_glucostride)
+            .setSmallIcon(R.drawable.ic_glucostride_notification)
             .setContentTitle(getString(R.string.pump_notification_title))
             .setContentText(getString(R.string.pump_notification_text))
             .setVisibility(Notification.VISIBILITY_PRIVATE)

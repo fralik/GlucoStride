@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="240" viewBox="0 0 200 240" role="img" aria-labelledby="title">
+  <title id="title">GlucoStride Strider</title>
+  <g color="#101B24">
+    <path d="M100 118 L78 153 H43 L27 161 M128 117 L153 140 L139 175 H176" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M121 15 C114 37 79 55 73 81 C65 108 82 130 108 130 C137 130 157 109 153 86 C149 64 129 37 121 15 Z" fill="currentColor"/>
+    <path d="M26 220 C60 229 89 224 111 211 C134 197 158 195 180 202" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>
+  </g>
+</svg>

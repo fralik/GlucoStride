@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="title">
+  <title id="title">GlucoStride Strider, 24 pixel optical icon</title>
+  <g color="#101B24">
+    <path d="M12 12 L10 15 H6 L4.5 15.75 M15 12 L17.5 14 L16 16.5 H20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M14 1.5 C13.25 3.75 10 5.5 9.25 8 C8.5 10.75 10.25 13 12.75 13 C15.75 13 17.75 11 17.25 8.5 C16.75 6.25 14.75 3.75 14 1.5 Z" fill="currentColor"/>
+    <path d="M4.5 22 C8 23 11 22.5 13.25 21.25 C15.5 20 18 19.75 20.25 20.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+</svg>
